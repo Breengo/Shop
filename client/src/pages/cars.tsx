@@ -1,18 +1,21 @@
+import Filter from "@/components/Filter";
 import ProductBox from "@/components/ProductBox";
 
 const Cars = () => {
   return (
-    <div>
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
-      <ProductBox />
+    <div className="flex">
+      <div>
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+        <ProductBox />
+      </div>
     </div>
   );
 };

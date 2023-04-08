@@ -2,7 +2,9 @@ import Head from "next/head";
 import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { Select, MenuItem } from "@mui/material";
+import Filter from "./Filter";
+import Order from "./Order";
+import PaginationElement from "./Pagination";
 
 interface IProps {
   children?: ReactNode;
@@ -17,26 +19,22 @@ export default function Layout({ children }: IProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="w-full min-h-screen bg-neutral-900 pt-60 pb-20">
-        <Navbar />
-        <div className="flex">
-          <aside className="flex flex-col">
-            <Select
-              placeholder="Value"
-              color="secondary"
-              className="text-white"
-            >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </aside>
-          <main className="w-6/12 mx-auto border-b border-l border-r rounded-b-md border-neutral-800 h-fit p-0">
-            {children}
-          </main>
-          <aside></aside>
+      <div className="w-full min-h-screen bg-neutral-900 pt-8">
+        <h1 className="text-center text-9xl text-rose-600 font-mono font-bold uppercase">
+          Car Shop
+        </h1>
+        <div className="pt-20 pb-20">
+          <Navbar />
+          <div className="flex  justify-center">
+            <Filter />
+            <main className="w-6/12 border-b border-l border-r rounded-b-md border-neutral-800 h-fit p-0">
+              {children}
+            </main>
+            <Order />
+          </div>
+          <PaginationElement />
+          <Footer />
         </div>
-        <Footer />
       </div>
     </>
   );

@@ -23,8 +23,11 @@ const ProductBox = () => {
           <div>
             <h3 className="text-white font-bold">Toyota</h3>
             <ul className="text-xl text-neutral-100 mt-2 flex flex-wrap">
-              {PROPERTIES.map((property) => (
-                <li className="p-2 border-neutral-700 border rounded-md m-2">
+              {PROPERTIES.map((property, index) => (
+                <li
+                  key={index}
+                  className="p-2 border-neutral-700 border rounded-md m-2"
+                >
                   {property}
                 </li>
               ))}
