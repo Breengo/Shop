@@ -5,12 +5,14 @@ import Footer from "./Footer";
 import Filter from "./Filter";
 import Order from "./Order";
 import PaginationElement from "./Pagination";
+import { useRouter } from "next/router";
 
 interface IProps {
   children?: ReactNode;
 }
 
 export default function Layout({ children }: IProps) {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -32,7 +34,7 @@ export default function Layout({ children }: IProps) {
             </main>
             <Order />
           </div>
-          <PaginationElement />
+          <PaginationElement key={router.asPath} />
           <Footer />
         </div>
       </div>

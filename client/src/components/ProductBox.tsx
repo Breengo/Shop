@@ -1,13 +1,27 @@
 import Image from "next/image";
 
-const ProductBox = () => {
+type ProductData = {
+  title: string;
+  fuel: string;
+  transmission: string;
+  engine: string;
+  drivetrain: string;
+  interiorColor: string;
+  exteriorColor: string;
+};
+
+interface BoxProps {
+  data: ProductData;
+}
+
+const ProductBox: React.FC<BoxProps> = ({ data }) => {
   const PROPERTIES = [
-    "Fuel:Gasoline",
-    "Transmission:Automatic CTV",
-    "Engine:2.4: H4 16V GDI DOHC Turbo",
-    "Drivetrain:All-wheel Drive",
-    "Interior color:Black",
-    "Exterior color:Black",
+    `Fuel:${data.fuel}`,
+    `Transmission:${data.transmission}`,
+    `Engine:2.4: ${data.engine}`,
+    `Drivetrain:${data.drivetrain}`,
+    `Interior color:${data.interiorColor}`,
+    `Exterior color:${data.exteriorColor}`,
   ];
   return (
     <div className="border-t border-t-neutral-800 w-full py-10 px-8 hover:bg-neutral-800 hover:scale-105 hover:rounded-md cursor-pointer transition">
@@ -21,7 +35,7 @@ const ProductBox = () => {
         />
         <div className="text-3xl ml-8 w-full font-mono relative">
           <div>
-            <h3 className="text-white font-bold">Toyota</h3>
+            <h3 className="text-white font-bold">{data.title}</h3>
             <ul className="text-xl text-neutral-100 mt-2 flex flex-wrap">
               {PROPERTIES.map((property, index) => (
                 <li

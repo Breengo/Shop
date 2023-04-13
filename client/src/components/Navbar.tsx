@@ -2,9 +2,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 const ANCHORS = [
-  { index: 1, text: "Cars", path: "/cars" },
-  { index: 2, text: "Bikes", path: "/bikes" },
-  { index: 3, text: "Aircrafts", path: "/aircrafts" },
+  { index: 1, text: "Cars", path: "/cars/1" },
+  { index: 2, text: "Bikes", path: "/bikes/1" },
+  { index: 3, text: "Aircrafts", path: "/aircrafts/1" },
 ];
 
 const Navbar = () => {
@@ -15,10 +15,10 @@ const Navbar = () => {
         {ANCHORS.map((anchor) => (
           <Link
             className={
-              "w-full text-center text-xl font-bold hover:text-white hover:bg-neutral-800 font-mono p-2 transition py-4 " +
-              (router.pathname === anchor.path
+              "w-full text-center text-xl font-bold font-mono p-2 transition py-4 " +
+              (router.pathname.includes(anchor.text.toLowerCase())
                 ? "bg-rose-500 text-white rounded-md"
-                : "text-neutral-300")
+                : "text-neutral-300 hover:text-white hover:bg-neutral-800")
             }
             href={anchor.path}
             key={anchor.index}

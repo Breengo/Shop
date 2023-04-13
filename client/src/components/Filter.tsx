@@ -97,7 +97,6 @@ const Filter = () => {
           </label>
           <Slider
             className="mt-2"
-            aria-label="Custom marks"
             max={1000000}
             getAriaLabel={() => "Temperature range"}
             valueLabelDisplay="auto"
