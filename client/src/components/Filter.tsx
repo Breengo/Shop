@@ -1,4 +1,5 @@
 import React from "react";
+import debounce from "lodash.debounce";
 import {
   Select,
   MenuItem,
@@ -8,6 +9,13 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
+import { useAppDispatch } from "@/redux/store";
+import {
+  changeFilterOption,
+  changeMilleageFilter,
+  changePriceFilter,
+  filterSlice,
+} from "@/redux/slices/filterSlice";
 
 const selectStyle = {
   color: "white",
@@ -29,12 +37,36 @@ const selectStyle = {
 };
 
 const FilterOptions = [
-  { id: 1, label: "Item", options: ["Item 1", "Item 2", "Item 3", "Item 4"] },
-  { id: 2, label: "Item", options: ["Item 1", "Item 2", "Item 3", "Item 4"] },
-  { id: 3, label: "Item", options: ["Item 1", "Item 2", "Item 3", "Item 4"] },
-  { id: 4, label: "Item", options: ["Item 1", "Item 2", "Item 3", "Item 4"] },
-  { id: 5, label: "Item", options: ["Item 1", "Item 2", "Item 3", "Item 4"] },
-  { id: 6, label: "Item", options: ["Item 1", "Item 2", "Item 3", "Item 4"] },
+  {
+    id: 1,
+    label: "Fuel",
+    options: ["Gasoline", "Diesel", "Kerosene", "Electricity"],
+  },
+  {
+    id: 2,
+    label: "Transmission",
+    options: ["Manual", "Automatic", "CVT"],
+  },
+  {
+    id: 3,
+    label: "Engine",
+    options: ["Naturally aspirated", "Turbocharged", "CRDi", "MPFI"],
+  },
+  {
+    id: 4,
+    label: "Drivetrain",
+    options: ["All-wheel Drive", "Front-wheel Drive", "Rear-wheel Drive"],
+  },
+  {
+    id: 5,
+    label: "Interior color",
+    options: ["Black", "Red", "Blue", "Green"],
+  },
+  {
+    id: 6,
+    label: "Exterior color",
+    options: ["Black", "Red", "Blue", "Green"],
+  },
 ];
 
 function valuetext(value: number) {
@@ -55,13 +87,23 @@ const marks = [
 
 const Filter = () => {
   const [priceRange, setPriceRange] = React.useState<number[]>([0, 1000000]);
+  const priceRef = React.useRef<number[]>([0, 1000000]);
+  const dispatch = useAppDispatch();
+  const debChangePrice = React.useCallback(
+    debounce(() => dispatch(changePriceFilter(priceRef.current)), 300),
+    []
+  );
+  React.useEffect(() => {
+    debChangePrice();
+  }, [priceRange]);
+
   return (
     <div className="flex flex-col border border-neutral-800 rounded-md p-6 w-80 h-fit mr-4">
       <h4 className="text-rose-400 text-3xl font-mono uppercase text-center font-bold mb-4">
         Filter
       </h4>
       <FormControl className="flex flex-col gap-8 w-full mt-4">
-        {FilterOptions.map((FOption) => {
+        {FilterOptions.map((FOption, index) => {
           return (
             <FormControl className="w-full" key={FOption.id}>
               <InputLabel
@@ -72,6 +114,11 @@ const Filter = () => {
                 {FOption.label}
               </InputLabel>
               <Select
+                onChange={(e) => {
+                  dispatch(
+                    changeFilterOption(`${FOption.label}:${e.target.value}`)
+                  );
+                }}
                 defaultValue={""}
                 id={FOption.id.toString()}
                 className="w-full"
@@ -102,7 +149,10 @@ const Filter = () => {
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
             value={priceRange}
-            onChange={(e, newValue) => setPriceRange(newValue as number[])}
+            onChange={(e, newValue) => {
+              setPriceRange(newValue as number[]);
+              priceRef.current = newValue as number[];
+            }}
             marks={marks}
             sx={{
               "	.MuiSlider-markLabel": {
@@ -146,16 +196,23 @@ const Filter = () => {
             }}
           />
         </div>
-        <FormControlLabel
-          className="text-white ml-2"
-          control={<Checkbox defaultChecked />}
-          label="With milleage"
-          sx={{
-            ".MuiCheckbox-root": {
-              color: "rgb(244 63 94)",
-            },
-          }}
-        />
+        <div>
+          <FormControlLabel
+            onChange={() => dispatch(changeMilleageFilter())}
+            className="text-white"
+            control={<Checkbox defaultChecked />}
+            label="With milleage"
+            labelPlacement="start"
+            sx={{
+              ".MuiCheckbox-root": {
+                color: "rgb(244 63 94)",
+                "&.Mui-checked": {
+                  color: "rgb(244 63 94)",
+                },
+              },
+            }}
+          />
+        </div>
       </FormControl>
     </div>
   );

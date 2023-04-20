@@ -11,7 +11,7 @@ const Navbar = () => {
   const router = useRouter();
   return (
     <nav className="flex justify-center w-full">
-      <ul className="flex justify-around w-6/12 border-t border-r border-l border-neutral-800 rounded-t-md">
+      <ul className="flex justify-around w-6/12 border border-neutral-800 rounded-md">
         {ANCHORS.map((anchor) => (
           <Link
             className={

@@ -22,14 +22,17 @@ export default function Layout({ children }: IProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full min-h-screen bg-neutral-900 pt-8">
-        <h1 className="text-center text-9xl text-rose-600 font-mono font-bold uppercase">
+        <h1 className="text-center text-9xl text-rose-400 font-mono font-bold uppercase animate-in fade-in duration-1000">
           Car Shop
         </h1>
-        <div className="pt-20 pb-20">
+        <div className="pt-20 pb-20 animate-in fade-in duration-1000">
           <Navbar />
-          <div className="flex  justify-center">
+          <div className="flex justify-center mt-8">
             <Filter />
-            <main className="w-6/12 border-b border-l border-r rounded-b-md border-neutral-800 h-fit p-0">
+            <main
+              key={router.asPath}
+              className="w-6/12 border-l border-r border-b rounded-md border-neutral-800 h-fit"
+            >
               {children}
             </main>
             <Order />
