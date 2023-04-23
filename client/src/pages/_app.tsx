@@ -4,6 +4,19 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
+import { Roboto } from "next/font/google";
+import { ThemeProvider, createTheme } from "@mui/material";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: "500",
+});
+
+const THEME = createTheme({
+  typography: {
+    fontFamily: "var(--roboto-font)",
+  },
+});
 
 export default function MyApp({ Component, pageProps, ...appProps }: AppProps) {
   const isLayoutNeeded = !(
@@ -13,9 +26,18 @@ export default function MyApp({ Component, pageProps, ...appProps }: AppProps) {
   const LayoutComponent = isLayoutNeeded ? Layout : React.Fragment;
   return (
     <Provider store={store}>
-      <LayoutComponent>
-        <Component {...pageProps} />
-      </LayoutComponent>
+      <style jsx global>
+        {`
+          :root {
+            --roboto-font: ${roboto.style.fontFamily};
+          }
+        `}
+      </style>
+      <ThemeProvider theme={THEME}>
+        <LayoutComponent>
+          <Component {...pageProps} />
+        </LayoutComponent>
+      </ThemeProvider>
     </Provider>
   );
 }

@@ -21,18 +21,15 @@ export default function Layout({ children }: IProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="w-full min-h-screen bg-neutral-900 pt-8">
-        <h1 className="text-center text-9xl text-rose-400 font-mono font-bold uppercase animate-in fade-in duration-1000">
-          Car Shop
+      <div className="w-full min-h-screen bg-neutral-900 pt-8 scroll-smooth font-primary">
+        <h1 className="text-center text-9xl text-rose-500 font-bold uppercase animate-in fade-in duration-1000 ">
+          Vehicle Shop
         </h1>
         <div className="pt-20 pb-20 animate-in fade-in duration-1000">
           <Navbar />
           <div className="flex justify-center mt-8">
             <Filter />
-            <main
-              key={router.asPath}
-              className="w-6/12 border-l border-r border-b rounded-md border-neutral-800 h-fit"
-            >
+            <main className="w-6/12 border-l border-r border-b rounded-md border-neutral-800 h-fit">
               {children}
             </main>
             <Order />

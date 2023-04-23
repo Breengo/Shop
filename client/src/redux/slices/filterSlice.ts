@@ -26,7 +26,6 @@ export const filterSlice = createSlice({
         item.split(":")[0] === property ? (existedFilter = index) : item
       );
       if (existedFilter !== -1) {
-        console.log(property);
         if (!value) {
           state.options.splice(existedFilter, 1);
         } else {

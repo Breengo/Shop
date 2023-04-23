@@ -14,8 +14,13 @@ import {
   changeFilterOption,
   changeMilleageFilter,
   changePriceFilter,
-  filterSlice,
 } from "@/redux/slices/filterSlice";
+import {
+  AircraftOptions,
+  BikeOptions,
+  CarOptions,
+} from "@/constants/FilterOptions";
+import { useRouter } from "next/router";
 
 const selectStyle = {
   color: "white",
@@ -36,42 +41,17 @@ const selectStyle = {
   },
 };
 
-const FilterOptions = [
-  {
-    id: 1,
-    label: "Fuel",
-    options: ["Gasoline", "Diesel", "Kerosene", "Electricity"],
-  },
-  {
-    id: 2,
-    label: "Transmission",
-    options: ["Manual", "Automatic", "CVT"],
-  },
-  {
-    id: 3,
-    label: "Engine",
-    options: ["Naturally aspirated", "Turbocharged", "CRDi", "MPFI"],
-  },
-  {
-    id: 4,
-    label: "Drivetrain",
-    options: ["All-wheel Drive", "Front-wheel Drive", "Rear-wheel Drive"],
-  },
-  {
-    id: 5,
-    label: "Interior color",
-    options: ["Black", "Red", "Blue", "Green"],
-  },
-  {
-    id: 6,
-    label: "Exterior color",
-    options: ["Black", "Red", "Blue", "Green"],
-  },
-];
-
 function valuetext(value: number) {
   return `${value}$`;
 }
+
+let FilterOptions = [
+  {
+    id: 0,
+    label: "Title",
+    options: ["Option"],
+  },
+];
 
 const marks = [
   {
@@ -89,6 +69,7 @@ const Filter = () => {
   const [priceRange, setPriceRange] = React.useState<number[]>([0, 1000000]);
   const priceRef = React.useRef<number[]>([0, 1000000]);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const debChangePrice = React.useCallback(
     debounce(() => dispatch(changePriceFilter(priceRef.current)), 300),
     []
@@ -97,13 +78,23 @@ const Filter = () => {
     debChangePrice();
   }, [priceRange]);
 
+  if (router.pathname.includes("cars")) {
+    FilterOptions = CarOptions;
+  }
+  if (router.pathname.includes("bikes")) {
+    FilterOptions = BikeOptions;
+  }
+  if (router.pathname.includes("aircrafts")) {
+    FilterOptions = AircraftOptions;
+  }
+
   return (
     <div className="flex flex-col border border-neutral-800 rounded-md p-6 w-80 h-fit mr-4">
-      <h4 className="text-rose-400 text-3xl font-mono uppercase text-center font-bold mb-4">
+      <h4 className="text-rose-400 text-3xl uppercase text-center font-bold mb-4">
         Filter
       </h4>
       <FormControl className="flex flex-col gap-8 w-full mt-4">
-        {FilterOptions.map((FOption, index) => {
+        {FilterOptions.map((FOption) => {
           return (
             <FormControl className="w-full" key={FOption.id}>
               <InputLabel
@@ -139,7 +130,7 @@ const Filter = () => {
           );
         })}
         <div className="w-full flex flex-col items-center bg-neutral-800 px-10 py-4 rounded-md">
-          <label className="text-center font-bold text-lg text-white font-mono">
+          <label className="text-center font-bold text-lg text-white">
             Price range
           </label>
           <Slider

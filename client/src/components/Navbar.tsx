@@ -15,7 +15,7 @@ const Navbar = () => {
         {ANCHORS.map((anchor) => (
           <Link
             className={
-              "w-full text-center text-xl font-bold font-mono p-2 transition py-4 " +
+              "w-full text-center text-xl font-bold p-2 transition py-4 " +
               (router.pathname.includes(anchor.text.toLowerCase())
                 ? "bg-rose-500 text-white rounded-md"
                 : "text-neutral-300 hover:text-white hover:bg-neutral-800")

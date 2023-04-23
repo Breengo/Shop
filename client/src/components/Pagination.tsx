@@ -2,22 +2,30 @@ import React from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { useAppSelector } from "@/redux/store";
 
 export default function PaginationElement() {
   const router = useRouter();
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [pageNumber, setPageNumber] = React.useState(1);
+
+  const filterOptions = useAppSelector((state) => state.filter);
+  const pageNumber = Math.ceil(
+    useAppSelector((state) => state.products.data).length / 5
+  );
+
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [filterOptions]);
+
   React.useEffect(() => {
     const url = window.location.href;
     const urlPageId = url.slice(url.lastIndexOf("/") + 1);
     let urlPage = url.slice(0, url.lastIndexOf("/"));
     urlPage = urlPage.slice(urlPage.lastIndexOf("/") + 1);
+
     setCurrentPage(Number(urlPageId));
-    axios
-      .get(`http://localhost:3000/api/getPages/?page=${urlPage}`)
-      .then((res) => setPageNumber(res.data.pages));
   }, []);
+
   const onChangePage = (page: number) => {
     const url = window.location.href;
     let urlPage = url.slice(0, url.lastIndexOf("/"));

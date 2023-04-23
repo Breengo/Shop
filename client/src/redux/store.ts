@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import filterReducer from "./slices/filterSlice";
 import orderReducer from "./slices/orderSlice";
+import productsReducer from "./slices/fetchProducts";
 
 export const store = configureStore({
   reducer: {
     filter: filterReducer,
     order: orderReducer,
+    products: productsReducer,
   },
 });
 
