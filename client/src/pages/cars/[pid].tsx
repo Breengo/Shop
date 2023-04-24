@@ -1,9 +1,9 @@
-import ProductBox from "@/components/ProductBox";
-import { fetchCars } from "@/redux/slices/fetchProducts";
+import ProductsPage from "@/components/ProductsPage";
+import useFilter from "@/hooks/useFilter";
+import { fetchCars } from "@/redux/slices/fetchCars";
 import { clearFilters } from "@/redux/slices/filterSlice";
 import { resetOrder } from "@/redux/slices/orderSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { Skeleton } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 
@@ -14,53 +14,11 @@ const Cars = () => {
 
   const orderOptions = useAppSelector((state) => state.order);
   const filterOptions = useAppSelector((state) => state.filter);
-  let isLoading = useAppSelector((state) => state.products.loading);
+  let isLoading = useAppSelector((state) => state.cars.loading);
+  let products = useAppSelector((state) => state.cars.data);
 
-  let products = useAppSelector((state) => state.products.data);
-  let tempARr = [...products];
-
-  switch (orderOptions.order) {
-    case "Alphabet":
-      tempARr.sort((productA, productB) => {
-        if (orderOptions.direction === "ASC") {
-          if (productA.title.toLowerCase() > productB.title.toLowerCase()) {
-            return -1;
-          } else {
-            return 1;
-          }
-        } else {
-          if (productA.title.toLowerCase() > productB.title.toLowerCase()) {
-            return 1;
-          } else {
-            return -1;
-          }
-        }
-      });
-      break;
-    case "Price":
-      tempARr.sort((productA, productB) => {
-        if (orderOptions.direction === "ASC")
-          return productA.price - productB.price;
-        else return productB.price - productA.price;
-      });
-      break;
-    case "Date":
-      tempARr.sort((productA, productB) => {
-        if (orderOptions.direction === "ASC")
-          return (
-            new Date(productA.timeStamp).getTime() -
-            new Date(productB.timeStamp).getTime()
-          );
-        else
-          return (
-            new Date(productB.timeStamp).getTime() -
-            new Date(productA.timeStamp).getTime()
-          );
-      });
-      break;
-  }
-
-  products = tempARr.filter(
+  let tempArr = useFilter(orderOptions, products);
+  products = tempArr.filter(
     (product, index) =>
       index < Number(pid) * 5 && index > (Number(pid) - 1) * 5 - 1
   );
@@ -84,34 +42,6 @@ const Cars = () => {
     dispatch(resetOrder());
   }, []);
 
-  return (
-    <div>
-      <div>
-        {!isLoading &&
-          products[0] &&
-          products.map((item, index) => <ProductBox data={item} key={index} />)}
-
-        {!isLoading && !products[0] && (
-          <div className="h-96 flex items-center justify-center border-t border-neutral-800 rounded-md text-5xl text-rose-600 uppercase">
-            No products
-          </div>
-        )}
-        {isLoading &&
-          [1, 2, 3, 4, 5].map((item, index) => (
-            <div
-              key={index}
-              className="border-t border-t-neutral-800 w-full rounded-md overflow-hidden"
-            >
-              <Skeleton
-                sx={{ backgroundColor: "rgb(38 38 38)" }}
-                variant="rounded"
-                width={2000}
-                height={300}
-              />
-            </div>
-          ))}
-      </div>
-    </div>
-  );
+  return <ProductsPage isLoading={isLoading} products={products} />;
 };
 export default Cars;

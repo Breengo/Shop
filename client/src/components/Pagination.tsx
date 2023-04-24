@@ -9,8 +9,16 @@ export default function PaginationElement() {
   const [currentPage, setCurrentPage] = React.useState(1);
 
   const filterOptions = useAppSelector((state) => state.filter);
+  let currentList: "cars" | "bikes" | "aircrafts" = "cars";
+  if (router.pathname.includes("aircrafts")) {
+    currentList = "aircrafts";
+  } else {
+    if (router.pathname.includes("bikes")) {
+      currentList = "bikes";
+    }
+  }
   const pageNumber = Math.ceil(
-    useAppSelector((state) => state.products.data).length / 5
+    useAppSelector((state) => state[currentList].data).length / 5
   );
 
   React.useEffect(() => {

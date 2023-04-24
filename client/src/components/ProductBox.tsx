@@ -1,20 +1,41 @@
-import { ICarsData } from "@/redux/slices/fetchProducts";
+import { IAircraftsData } from "@/redux/slices/fetchAircrafts";
+import { IBikesData } from "@/redux/slices/fetchBikes";
+import { ICarsData } from "@/redux/slices/fetchCars";
 import Image from "next/image";
 import Link from "next/link";
 
 interface BoxProps {
-  data: ICarsData;
+  data: ICarsData | IBikesData | IAircraftsData;
 }
-
 const ProductBox: React.FC<BoxProps> = ({ data }) => {
-  const PROPERTIES = [
-    `Fuel: ${data.fuel}`,
-    `Transmission: ${data.transmission}`,
-    `Engine:2.4: ${data.engine}`,
-    `Drivetrain: ${data.drivetrain}`,
-    `Interior color: ${data.interiorColor}`,
-    `Exterior color: ${data.exteriorColor}`,
+  const properties = [];
+  const NOT_PROPERTIES = [
+    "id",
+    "title",
+    "timeStamp",
+    "image",
+    "price",
+    "milleage",
   ];
+  for (let key in data) {
+    if (!NOT_PROPERTIES.includes(key)) {
+      let temp = key
+        .split("")
+        .map((symb, index) => {
+          if (index === 0) {
+            return symb.toUpperCase();
+          } else {
+            if (symb.toUpperCase() === symb) {
+              return ` ${symb.toLowerCase()}`;
+            } else {
+              return symb;
+            }
+          }
+        })
+        .join("");
+      properties.push(`${temp}: ${data[key as keyof typeof data]}`);
+    }
+  }
   return (
     <Link
       href={`/details/${data.id}`}
@@ -24,7 +45,7 @@ const ProductBox: React.FC<BoxProps> = ({ data }) => {
         <div className="flex">
           <Image
             className="rounded-md w-96 h-60"
-            src="/car.jpg"
+            src={`/${data.image}`}
             alt="error"
             height={200}
             width={400}
@@ -33,7 +54,7 @@ const ProductBox: React.FC<BoxProps> = ({ data }) => {
             <div>
               <h3 className="text-white font-bold">{data.title}</h3>
               <ul className="text-xl text-neutral-100 mt-2 flex flex-wrap">
-                {PROPERTIES.map((property, index) => (
+                {properties.map((property, index) => (
                   <li
                     key={index}
                     className="p-2 border-neutral-700 border rounded-md m-2"

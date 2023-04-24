@@ -10,6 +10,7 @@ type Data = {
   drivetrain: string;
   interiorColor: string;
   exteriorColor: string;
+  image: string;
   price: number;
   timeStamp: Date;
 };

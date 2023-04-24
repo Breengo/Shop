@@ -1,58 +1,56 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchCars = createAsyncThunk(
-  "products/fetchAllCars",
+export const fetchAircrafts = createAsyncThunk(
+  "products/fetchAllAircrafts",
   async (reqParams: string) => {
     const response = await axios.get(
-      `http://localhost:3000/api/getCars/${reqParams}`
+      `http://localhost:3000/api/getAircrafts/${reqParams}`
     );
     return response.data;
   }
 );
 
-export interface ICarsData {
+export interface IAircraftsData {
   id: number;
   title: string;
   fuel: string;
-  transmission: string;
-  engine: string;
-  drivetrain: string;
-  interiorColor: string;
   exteriorColor: string;
+  interiorColor: string;
+  image: string;
   price: number;
   milleage: number;
   timeStamp: string;
 }
 
-interface ICarsList {
-  data: ICarsData[];
+interface IAircraftsList {
+  data: IAircraftsData[];
   loading: boolean;
 }
 
-const initialState: ICarsList = {
+const initialState: IAircraftsList = {
   data: [],
   loading: false,
 };
 
-const carsSlice = createSlice({
-  name: "cars",
+const aircraftSlice = createSlice({
+  name: "aircrafts",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchCars.pending, (state) => {
+    builder.addCase(fetchAircrafts.pending, (state) => {
       state.data = [];
       state.loading = true;
     });
-    builder.addCase(fetchCars.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchAircrafts.fulfilled, (state, { payload }) => {
       state.data = payload;
       state.loading = false;
     });
-    builder.addCase(fetchCars.rejected, (state) => {
+    builder.addCase(fetchAircrafts.rejected, (state) => {
       state.data = [];
       state.loading = false;
     });
   },
 });
 
-export default carsSlice.reducer;
+export default aircraftSlice.reducer;
