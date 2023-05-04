@@ -41,6 +41,47 @@ const selectStyle = {
   },
 };
 
+const sliderStyle = {
+  "	.MuiSlider-markLabel": {
+    color: "white",
+    fontSize: "10px",
+  },
+  "	.MuiSlider-track": {
+    backgroundColor: "rgb(244 63 94)",
+    borderColor: "rgb(224 43 64)  ",
+  },
+  "	.MuiSlider-thumb": {
+    backgroundColor: "rgb(244 63 94)",
+    borderColor: "rgb(244 63 94)",
+    ":hover": {
+      boxShadow: "none",
+    },
+  },
+
+  ".Mui-active": {
+    backgroundColor: "rgb(244 63 94)",
+    borderColor: "rgb(244 63 94)",
+    boxShadow: "none",
+  },
+  "	.MuiSlider-rail": {
+    backgroundColor: "rgb(244 63 94)",
+    borderColor: "rgb(244 63 94)",
+  },
+  ".MuiSlider-mark": {
+    backgroundColor: "rgb(244 63 94)",
+  },
+  "	.MuiSlider-dragging": {
+    backgroundColor: "rgb(244 63 94)",
+    borderColor: "rgb(244 63 94)",
+  },
+  "	.Mui-focusVisible": {
+    boxShadow: "none",
+  },
+  ".MuiSlider-valueLabelOpen": {
+    backgroundColor: "rgb(244 63 94)",
+  },
+};
+
 function valuetext(value: number) {
   return `${value}$`;
 }
@@ -67,6 +108,17 @@ const marks = [
 
 const Filter = () => {
   const [priceRange, setPriceRange] = React.useState<number[]>([0, 1000000]);
+  const [selectVal, setSelectVal] = React.useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
+  const [checkBoxVal, setCheckBoxVal] = React.useState(true);
   const priceRef = React.useRef<number[]>([0, 1000000]);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -74,6 +126,13 @@ const Filter = () => {
     debounce(() => dispatch(changePriceFilter(priceRef.current)), 300),
     []
   );
+  React.useEffect(() => {
+    setSelectVal(["", "", "", "", "", "", "", ""]);
+    setCheckBoxVal(true);
+    setPriceRange([0, 1000000]);
+    priceRef.current = [0, 1000000];
+  }, [router]);
+
   React.useEffect(() => {
     debChangePrice();
   }, [priceRange]);
@@ -94,7 +153,7 @@ const Filter = () => {
         Filter
       </h4>
       <FormControl className="flex flex-col gap-8 w-full mt-4">
-        {FilterOptions.map((FOption) => {
+        {FilterOptions.map((FOption, index) => {
           return (
             <FormControl className="w-full" key={FOption.id}>
               <InputLabel
@@ -109,7 +168,13 @@ const Filter = () => {
                   dispatch(
                     changeFilterOption(`${FOption.label}:${e.target.value}`)
                   );
+                  setSelectVal((prev) => {
+                    return prev.map((item, prevIndex) =>
+                      prevIndex === index ? e.target.value : item
+                    );
+                  });
                 }}
+                value={selectVal[index]}
                 defaultValue={""}
                 id={FOption.id.toString()}
                 className="w-full"
@@ -145,53 +210,22 @@ const Filter = () => {
               priceRef.current = newValue as number[];
             }}
             marks={marks}
-            sx={{
-              "	.MuiSlider-markLabel": {
-                color: "white",
-                fontSize: "10px",
-              },
-              "	.MuiSlider-track": {
-                backgroundColor: "rgb(244 63 94)",
-                borderColor: "rgb(224 43 64)  ",
-              },
-              "	.MuiSlider-thumb": {
-                backgroundColor: "rgb(244 63 94)",
-                borderColor: "rgb(244 63 94)",
-                ":hover": {
-                  boxShadow: "none",
-                },
-              },
-
-              ".Mui-active": {
-                backgroundColor: "rgb(244 63 94)",
-                borderColor: "rgb(244 63 94)",
-                boxShadow: "none",
-              },
-              "	.MuiSlider-rail": {
-                backgroundColor: "rgb(244 63 94)",
-                borderColor: "rgb(244 63 94)",
-              },
-              ".MuiSlider-mark": {
-                backgroundColor: "rgb(244 63 94)",
-              },
-              "	.MuiSlider-dragging": {
-                backgroundColor: "rgb(244 63 94)",
-                borderColor: "rgb(244 63 94)",
-              },
-              "	.Mui-focusVisible": {
-                boxShadow: "none",
-              },
-              ".MuiSlider-valueLabelOpen": {
-                backgroundColor: "rgb(244 63 94)",
-              },
-            }}
+            sx={sliderStyle}
           />
         </div>
         <div>
           <FormControlLabel
-            onChange={() => dispatch(changeMilleageFilter())}
             className="text-white"
-            control={<Checkbox defaultChecked />}
+            control={
+              <Checkbox
+                onChange={() => {
+                  setCheckBoxVal((prev) => !prev);
+                  dispatch(changeMilleageFilter());
+                }}
+                checked={checkBoxVal}
+                value={checkBoxVal}
+              />
+            }
             label="With milleage"
             labelPlacement="start"
             sx={{

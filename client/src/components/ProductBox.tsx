@@ -1,47 +1,40 @@
 import { IAircraftsData } from "@/redux/slices/fetchAircrafts";
 import { IBikesData } from "@/redux/slices/fetchBikes";
 import { ICarsData } from "@/redux/slices/fetchCars";
+import propertyChecker from "@/utils/propertyChecker";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 interface BoxProps {
   data: ICarsData | IBikesData | IAircraftsData;
+  cartVersion?: boolean;
 }
-const ProductBox: React.FC<BoxProps> = ({ data }) => {
-  const properties = [];
-  const NOT_PROPERTIES = [
-    "id",
-    "title",
-    "timeStamp",
-    "image",
-    "price",
-    "milleage",
-  ];
-  for (let key in data) {
-    if (!NOT_PROPERTIES.includes(key)) {
-      let temp = key
-        .split("")
-        .map((symb, index) => {
-          if (index === 0) {
-            return symb.toUpperCase();
-          } else {
-            if (symb.toUpperCase() === symb) {
-              return ` ${symb.toLowerCase()}`;
-            } else {
-              return symb;
-            }
-          }
-        })
-        .join("");
-      properties.push(`${temp}: ${data[key as keyof typeof data]}`);
-    }
-  }
+const ProductBox: React.FC<BoxProps> = ({ data, cartVersion }) => {
+  const router = useRouter();
+  const currentPage = router.pathname.slice(
+    router.pathname.indexOf("/") + 1,
+    router.pathname.lastIndexOf("/")
+  );
+
+  const properties = propertyChecker(data);
+
   return (
     <Link
-      href={`/details/${data.id}`}
+      onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
+        cartVersion ? e.preventDefault() : ""
+      }
+      href={`/details/${currentPage}-${data.id}`}
       className="w-full animate-in fade-in duration-1000"
     >
-      <div className="border-t border-t-neutral-800 w-full py-10 px-8 hover:bg-neutral-800 hover:scale-105 cursor-pointer transition rounded-md">
+      <div
+        className={
+          "border-t border-t-neutral-800 w-full py-10 px-8 cursor-pointer transition rounded-md" +
+          (cartVersion
+            ? " hover:bg-rose-500"
+            : " hover:bg-neutral-800 hover:scale-105")
+        }
+      >
         <div className="flex">
           <Image
             className="rounded-md w-96 h-60"

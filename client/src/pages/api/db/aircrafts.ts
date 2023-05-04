@@ -10,7 +10,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 5000,
     milleage: 10,
-    timeStamp: new Date(2013, 0, 3),
+    timeStamp: new Date(2013, 1, 3),
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 250000,
     milleage: 0,
-    timeStamp: new Date(2012, 0, 3),
+    timeStamp: new Date(2012, 1, 3),
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 650000,
     milleage: 0,
-    timeStamp: new Date(2014, 0, 3),
+    timeStamp: new Date(2014, 1, 3),
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 500000,
     milleage: 10,
-    timeStamp: new Date(2015, 0, 3),
+    timeStamp: new Date(2015, 1, 3),
   },
   {
     id: 5,
@@ -62,7 +62,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 5000,
     milleage: 10,
-    timeStamp: new Date(2017, 0, 3),
+    timeStamp: new Date(2017, 1, 3),
   },
   {
     id: 6,
@@ -75,7 +75,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 5000,
     milleage: 10,
-    timeStamp: new Date(2017, 0, 3),
+    timeStamp: new Date(2017, 1, 3),
   },
   {
     id: 7,
@@ -88,7 +88,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 5000,
     milleage: 10,
-    timeStamp: new Date(2017, 0, 3),
+    timeStamp: new Date(2017, 1, 3),
   },
   {
     id: 8,
@@ -101,7 +101,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 5000,
     milleage: 10,
-    timeStamp: new Date(2017, 0, 3),
+    timeStamp: new Date(2017, 1, 3),
   },
   {
     id: 9,
@@ -114,7 +114,7 @@ const aircrafts = [
     image: "aircraft.jpg",
     price: 5000,
     milleage: 10,
-    timeStamp: new Date(2017, 0, 3),
+    timeStamp: new Date(2017, 1, 3),
   },
 ];
 

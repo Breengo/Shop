@@ -1,5 +1,6 @@
 import ProductsPage from "@/components/ProductsPage";
 import useFilter from "@/hooks/useFilter";
+import useReqParams from "@/hooks/useReqParams";
 import { fetchCars } from "@/redux/slices/fetchCars";
 import { clearFilters } from "@/redux/slices/filterSlice";
 import { resetOrder } from "@/redux/slices/orderSlice";
@@ -17,23 +18,12 @@ const Cars = () => {
   let isLoading = useAppSelector((state) => state.cars.loading);
   let products = useAppSelector((state) => state.cars.data);
 
-  let tempArr = useFilter(orderOptions, products);
-  products = tempArr.filter(
-    (product, index) =>
-      index < Number(pid) * 5 && index > (Number(pid) - 1) * 5 - 1
-  );
+  if (typeof pid === "string") {
+    products = useFilter(orderOptions, products, pid);
+  }
 
-  let reqParams = "";
   React.useEffect(() => {
-    reqParams += `?bottomPrice=${filterOptions.price[0]}&&upperPrice=${filterOptions.price[1]}`;
-    filterOptions.options.forEach((option, index) => {
-      let optionName = option.split(":")[0];
-      let optionValue = option.split(":")[1];
-      reqParams += `&&${optionName}=${optionValue}`;
-    });
-    if (!filterOptions.milleage) {
-      reqParams += `&&milleage=false`;
-    }
+    const reqParams = useReqParams(filterOptions);
     dispatch(fetchCars(reqParams));
   }, [filterOptions]);
 

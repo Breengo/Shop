@@ -1,9 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import cars from "./db/cars";
 import aircrafts from "./db/aircrafts";
 
-type Data = {
+export type AircraftData = {
   title: string;
   fuel: string;
   interiorColor: string;
@@ -15,7 +14,7 @@ type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data[]>
+  res: NextApiResponse<AircraftData[]>
 ) {
   const filter = req.query;
 

@@ -2,15 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
-interface IFilterState {
+export interface IFilterState {
   options: string[];
-  price: number[];
+  upperPrice: number;
+  bottomPrice: number;
   milleage: boolean;
 }
 
 const initialState: IFilterState = {
   options: [],
-  price: [0, 1000000],
+  upperPrice: 1000000,
+  bottomPrice: 0,
   milleage: true,
 };
 
@@ -35,15 +37,17 @@ export const filterSlice = createSlice({
         if (value) state.options.push(action.payload);
       }
     },
-    changePriceFilter: (state, action: PayloadAction<number[]>) => {
-      state.price = action.payload;
+    changePriceFilter: (state, { payload }: PayloadAction<number[]>) => {
+      state.upperPrice = payload[1];
+      state.bottomPrice = payload[0];
     },
     changeMilleageFilter: (state) => {
       state.milleage = !state.milleage;
     },
     clearFilters: (state) => {
+      state.upperPrice = 1000000;
+      state.bottomPrice = 0;
       state.options = [];
-      state.price = [0, 1000000];
       state.milleage = true;
     },
   },

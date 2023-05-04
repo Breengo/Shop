@@ -73,7 +73,7 @@ export const AircraftOptions = [
   {
     id: 3,
     label: "Speed",
-    options: ["Fasst", "Normal", "Slow"],
+    options: ["Fast", "Normal", "Slow"],
   },
 
   {

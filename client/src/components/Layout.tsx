@@ -1,11 +1,16 @@
 import Head from "next/head";
+import React from "react";
 import { ReactNode } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Filter from "./Filter";
 import Order from "./Order";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PaginationElement from "./Pagination";
 import { useRouter } from "next/router";
+import { Badge } from "@mui/material";
+import Link from "next/link";
+import { useAppSelector } from "@/redux/store";
 
 interface IProps {
   children?: ReactNode;
@@ -13,6 +18,9 @@ interface IProps {
 
 export default function Layout({ children }: IProps) {
   const router = useRouter();
+
+  const cartItems = useAppSelector((state) => state.cart.cart.length);
+
   return (
     <>
       <Head>
@@ -25,6 +33,19 @@ export default function Layout({ children }: IProps) {
         <h1 className="text-center text-9xl text-rose-500 font-bold uppercase animate-in fade-in duration-1000 ">
           Vehicle Shop
         </h1>
+        <Link
+          href={"/cart"}
+          className="absolute top-10 right-10 cursor-pointer hover:bg-neutral-800 p-1 rounded-md"
+        >
+          <Badge badgeContent={cartItems} color="primary">
+            <ShoppingCartIcon
+              sx={{
+                color: "white",
+              }}
+              fontSize="large"
+            />
+          </Badge>
+        </Link>
         <div className="pt-20 pb-20 animate-in fade-in duration-1000">
           <Navbar />
           <div className="flex justify-center mt-8">

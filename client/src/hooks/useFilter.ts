@@ -9,7 +9,8 @@ interface IOrderOptions {
 
 function useFilter<T extends ICarsData | IBikesData | IAircraftsData>(
   orderOptions: IOrderOptions,
-  tempArr: T[]
+  tempArr: T[],
+  pid: string
 ): T extends ICarsData
   ? ICarsData[]
   : T extends IBikesData
@@ -20,7 +21,7 @@ function useFilter<T extends ICarsData | IBikesData | IAircraftsData>(
   let newArr = [...tempArr];
   switch (orderOptions.order) {
     case "Alphabet":
-      tempArr.sort((productA, productB) => {
+      newArr.sort((productA, productB) => {
         if (orderOptions.direction === "ASC") {
           if (productA.title.toLowerCase() > productB.title.toLowerCase()) {
             return -1;
@@ -37,14 +38,14 @@ function useFilter<T extends ICarsData | IBikesData | IAircraftsData>(
       });
       break;
     case "Price":
-      tempArr.sort((productA, productB) => {
+      newArr.sort((productA, productB) => {
         if (orderOptions.direction === "ASC")
           return productA.price - productB.price;
         else return productB.price - productA.price;
       });
       break;
     case "Date":
-      tempArr.sort((productA, productB) => {
+      newArr.sort((productA, productB) => {
         if (orderOptions.direction === "ASC")
           return (
             new Date(productA.timeStamp).getTime() -
@@ -58,7 +59,10 @@ function useFilter<T extends ICarsData | IBikesData | IAircraftsData>(
       });
       break;
   }
-  return newArr as any;
+  return newArr.filter(
+    (product, index) =>
+      index < Number(pid) * 5 && index > (Number(pid) - 1) * 5 - 1
+  ) as any;
 }
 
 export default useFilter;

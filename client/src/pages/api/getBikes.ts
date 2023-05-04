@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import bikes from "./db/bikes";
 
-type Data = {
+export type BikeData = {
   id: number;
   title: string;
   fuel: string;
@@ -18,7 +18,7 @@ type Data = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data[]>
+  res: NextApiResponse<BikeData[]>
 ) {
   const filter = req.query;
 
