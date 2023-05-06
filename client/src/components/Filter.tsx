@@ -148,11 +148,11 @@ const Filter = () => {
   }
 
   return (
-    <div className="flex flex-col border border-neutral-800 rounded-md p-6 w-80 h-fit mr-4">
-      <h4 className="text-rose-400 text-3xl uppercase text-center font-bold mb-4">
+    <div className="flex flex-col border border-neutral-800 rounded-md 2xl:p-6 p-4 2xl:w-80 w-60 h-fit mr-4">
+      <h4 className="text-rose-400 2xl:text-3xl text-lg uppercase text-center font-bold mb-4">
         Filter
       </h4>
-      <FormControl className="flex flex-col gap-8 w-full mt-4">
+      <FormControl className="flex flex-col 2xl:gap-8 gap-4 w-full mt-4">
         {FilterOptions.map((FOption, index) => {
           return (
             <FormControl className="w-full" key={FOption.id}>

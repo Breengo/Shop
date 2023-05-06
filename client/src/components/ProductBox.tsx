@@ -29,28 +29,29 @@ const ProductBox: React.FC<BoxProps> = ({ data, cartVersion }) => {
     >
       <div
         className={
-          "border-t border-t-neutral-800 w-full py-10 px-8 cursor-pointer transition rounded-md" +
+          "border-t border-t-neutral-800 w-full p-8 cursor-pointer transition rounded-md" +
           (cartVersion
             ? " hover:bg-rose-500"
             : " hover:bg-neutral-800 hover:scale-105")
         }
       >
         <div className="flex">
-          <Image
-            className="rounded-md w-96 h-60"
-            src={`/${data.image}`}
-            alt="error"
-            height={200}
-            width={400}
-          />
+          <div className="w-4/6 xl:h-64 lg:h-48 h-32 relative">
+            <Image
+              fill={true}
+              className="rounded-md w-96 h-60"
+              src={`/${data.image}`}
+              alt="error"
+            />
+          </div>
           <div className="text-3xl ml-8 w-full relative">
             <div>
               <h3 className="text-white font-bold">{data.title}</h3>
-              <ul className="text-xl text-neutral-100 mt-2 flex flex-wrap">
+              <ul className="text-neutral-100 mt-2 flex flex-wrap items-center">
                 {properties.map((property, index) => (
                   <li
                     key={index}
-                    className="p-2 border-neutral-700 border rounded-md m-2"
+                    className="p-2 border-neutral-700 border rounded-md m-1 2xl:m-2 2xl:text-lg text-sm"
                   >
                     {property}
                   </li>
@@ -61,7 +62,7 @@ const ProductBox: React.FC<BoxProps> = ({ data, cartVersion }) => {
               {data.milleage}
               <span> KM</span>
             </p>
-            <p className="absolute right-0 bottom-0 text-rose-500 rounded-xl p-2">
+            <p className="absolute text-xl right-0 bottom-0 text-rose-500 rounded-xl p-2">
               {data.price}$
             </p>
             <p className="absolute right-0 top-0 text-neutral-600 rounded-xl text-lg">

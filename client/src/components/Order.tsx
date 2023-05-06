@@ -14,8 +14,8 @@ const Order = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="flex flex-col border border-neutral-800 rounded-md pt-6 w-80 h-fit ml-4">
-      <h4 className="text-rose-400 text-3xl uppercase text-center font-bold mb-4">
+    <div className="flex flex-col border border-neutral-800 rounded-md 2xl:pt-6 pt-2 2xl:w-80 w-60 h-fit ml-4">
+      <h4 className="text-rose-400 2xl:text-3xl text-lg uppercase text-center font-bold 2xl:mb-4 mb-1">
         Order
       </h4>
       <ul className="w-full flex flex-col items-center rounded-b-md overflow-hidden">
@@ -28,7 +28,7 @@ const Order = () => {
                 : dispatch(changeOrder(orderBy));
             }}
             className={
-              "flex items-center justify-center w-full py-2 cursor-pointer text-xl text-white border-t border-neutral-800 " +
+              "flex items-center justify-center w-full py-2 cursor-pointer 2xl:text-xl text-sm text-white border-t border-neutral-800 " +
               (orderBy === orderedBy
                 ? "bg-rose-500 hover:bg-rose-600 transition-all"
                 : "hover:bg-neutral-800 ") +

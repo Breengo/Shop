@@ -30,7 +30,7 @@ export default function Layout({ children }: IProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full min-h-screen bg-neutral-900 pt-8 scroll-smooth font-primary">
-        <h1 className="text-center text-9xl text-rose-500 font-bold uppercase animate-in fade-in duration-1000 ">
+        <h1 className="text-center lg:text-9xl text-5xl text-rose-500 font-bold uppercase animate-in fade-in duration-1000 ">
           Vehicle Shop
         </h1>
         <Link
@@ -50,7 +50,7 @@ export default function Layout({ children }: IProps) {
           <Navbar />
           <div className="flex justify-center mt-8">
             <Filter />
-            <main className="w-6/12 border-l border-r border-b rounded-md border-neutral-800 h-fit">
+            <main className="w-8/12 2xl:w-6/12 border-l border-r border-b rounded-md border-neutral-800 h-fit">
               {children}
             </main>
             <Order />
