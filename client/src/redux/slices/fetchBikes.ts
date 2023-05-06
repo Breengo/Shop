@@ -5,9 +5,7 @@ import axios from "axios";
 export const fetchBikes = createAsyncThunk(
   "products/fetchAllBikes",
   async (reqParams: string) => {
-    const response = await axios.get(
-      `http://${baseURL}/api/getBikes/${reqParams}`
-    );
+    const response = await axios.get(`${baseURL}/api/getBikes/${reqParams}`);
     return response.data;
   }
 );

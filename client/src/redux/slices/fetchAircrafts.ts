@@ -6,7 +6,7 @@ export const fetchAircrafts = createAsyncThunk(
   "products/fetchAllAircrafts",
   async (reqParams: string) => {
     const response = await axios.get(
-      `http://${baseURL}/api/getAircrafts/${reqParams}`
+      `${baseURL}/api/getAircrafts/${reqParams}`
     );
     return response.data;
   }
