@@ -14,12 +14,12 @@ export default function handler(
   const { type, id } = req.query;
 
   if (type === "cars") {
-    res.status(200).json(cars[Number(id) - 1]);
+    return res.status(200).json(cars[Number(id) - 1]);
   }
   if (type === "bikes") {
-    res.status(200).json(bikes[Number(id) - 1]);
+    return res.status(200).json(bikes[Number(id) - 1]);
   }
   if (type === "aircrafts") {
-    res.status(200).json(aircrafts[Number(id) - 1]);
+    return res.status(200).json(aircrafts[Number(id) - 1]);
   }
 }
