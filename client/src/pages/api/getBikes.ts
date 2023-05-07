@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import bikes from "./db/bikes";
+import bikes from "../../db/bikes";
 
 export type BikeData = {
   id: number;
