@@ -23,7 +23,7 @@ export default function handler(
   const filter = req.query;
 
   if (filter) {
-    return res.status(200).json(
+    res.status(200).json(
       bikes.filter((item) => {
         let optionMatch = 0;
         for (let key in filter) {
@@ -52,6 +52,6 @@ export default function handler(
       })
     );
   } else {
-    return res.status(200).json(bikes);
+    res.status(200).json(bikes);
   }
 }
