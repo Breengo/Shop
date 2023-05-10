@@ -1,1 +1,1 @@
-export const baseURL = "http://localhost:3000";
+export const baseURL = "https://shop-breengo1.vercel.app";
