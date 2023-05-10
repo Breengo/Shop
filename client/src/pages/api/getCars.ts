@@ -303,5 +303,5 @@ export default function handler(
 ) {
   const filter = req.query;
 
-  res.status(200).json(cars);
+  return res.json(cars);
 }
