@@ -5,12 +5,8 @@ import axios from "axios";
 export const fetchCars = createAsyncThunk(
   "products/fetchAllCars",
   async (reqParams: string) => {
-    try {
-      const response = await axios.get(`${baseURL}/api/getCars/${reqParams}`);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await axios.get(`${baseURL}/api/getCars/${reqParams}`);
+    return response.data;
   }
 );
 
