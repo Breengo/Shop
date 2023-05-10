@@ -19,7 +19,7 @@ export default function handler(
   const filter = req.query;
 
   if (filter) {
-    res.status(200).json(
+    return res.status(200).json(
       aircrafts.filter((item) => {
         let optionMatch = 0;
         for (let key in filter) {
@@ -48,6 +48,6 @@ export default function handler(
       })
     );
   } else {
-    res.status(200).json(aircrafts);
+    return res.status(200).json(aircrafts);
   }
 }
