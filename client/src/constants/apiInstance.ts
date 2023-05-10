@@ -1,1 +1,1 @@
-export const baseURL = "https://shop-five-theta.vercel.app";
+export const baseURL = "https://shop-6834.vercel.app/";
