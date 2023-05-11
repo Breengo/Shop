@@ -10,6 +10,7 @@ import { addToCart } from "@/redux/slices/cartSlice";
 import propertyChecker from "@/utils/propertyChecker";
 import debounce from "lodash.debounce";
 import { useAppDispatch } from "@/redux/store";
+import { baseURL } from "@/constants/apiInstance";
 
 const DetailsPage = () => {
   const router = useRouter();
@@ -30,9 +31,7 @@ const DetailsPage = () => {
   React.useEffect(() => {
     if (params) {
       axios
-        .get(
-          `http://localhost:3000/api/getDetails/?type=${params[0]}&&id=${params[1]}`
-        )
+        .get(`${baseURL}/api/getDetails/?type=${params[0]}&&id=${params[1]}`)
         .then((res) => {
           setResData(res.data);
           resDataRef.current = res.data;
