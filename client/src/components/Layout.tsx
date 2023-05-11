@@ -1,11 +1,11 @@
 import Head from "next/head";
 import React from "react";
 import { ReactNode } from "react";
+import Image from "next/image";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Filter from "./Filter";
 import Order from "./Order";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import PaginationElement from "./Pagination";
 import { useRouter } from "next/router";
 import { Badge } from "@mui/material";
@@ -38,12 +38,7 @@ export default function Layout({ children }: IProps) {
           className="absolute top-10 right-10 cursor-pointer hover:bg-neutral-800 p-1 rounded-md"
         >
           <Badge badgeContent={cartItems} color="primary">
-            <ShoppingCartIcon
-              sx={{
-                color: "white",
-              }}
-              fontSize="large"
-            />
+            <Image src="/cart.svg" alt="error" width={40} height={40} />
           </Badge>
         </Link>
         <div className="pt-20 pb-20 animate-in fade-in duration-1000">

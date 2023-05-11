@@ -1,9 +1,6 @@
 import { changeOrder, changeOrderDirection } from "@/redux/slices/orderSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
-import {
-  KeyboardDoubleArrowDown,
-  KeyboardDoubleArrowUp,
-} from "@mui/icons-material";
+import Image from "next/image";
 import React from "react";
 
 const ORDER_LIST = ["Alphabet", "Price", "Date"];
@@ -37,10 +34,16 @@ const Order = () => {
           >
             <span className="mr-1">{orderBy}</span>
             {orderBy === orderedBy && direction === "DESC" && (
-              <KeyboardDoubleArrowDown fontSize="small" />
+              <Image
+                className="rotate-180"
+                src="/arrows.svg"
+                alt="error"
+                width={25}
+                height={25}
+              />
             )}
             {orderBy === orderedBy && direction === "ASC" && (
-              <KeyboardDoubleArrowUp fontSize="small" />
+              <Image src="/arrows.svg" alt="error" width={25} height={25} />
             )}
           </li>
         ))}
